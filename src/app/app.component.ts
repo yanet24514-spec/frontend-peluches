@@ -30,13 +30,9 @@ export class AppComponent {
 
       this.listaPeluches = data.products.slice(0, 6);
 
-      Swal.fire({
-        icon: 'success',
-        title: '¡Peluches Encontrados!',
-        text: `Se cargaron ${this.listaPeluches.length} elementos correctamente.`,
-        timer: 1800,
-        showConfirmButton: false
-      });
+      if (this.listaPeluches.length === 0) {
+        Swal.fire({ icon: 'warning', title: 'Sin resultados', text: 'No se encontraron elementos para esta búsqueda.' });
+      }
     } catch (error) {
       Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo conectar con el servicio.' });
     }

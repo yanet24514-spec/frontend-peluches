@@ -1,35 +1,69 @@
-<div class="container py-5">
-  <div class="p-4 mb-4 bg-danger text-white rounded-3 shadow-sm text-center">
-    <h1 class="display-5 fw-bold">Catálogo de Peluches en Angular</h1>
-    <p class="fs-5">Consumo de API Externa con Angular, Bootstrap 5 y SweetAlert2</p>
+<header class="bg-danger text-white py-4 mb-4 shadow-sm text-center">
+  <div class="container">
+    <h1 class="display-5 fw-bold mb-1">Catálogo de Peluches</h1>
+    <p class="lead mb-0 fs-6">Consumo de API Externa con Angular, Bootstrap 5 y SweetAlert2</p>
   </div>
+</header>
 
-  <div class="card shadow-sm p-4 mb-4">
-    <div class="row g-3">
-      <div class="col-md-8">
-        <input type="text" #txtBusqueda class="form-control form-control-lg" placeholder="Buscar peluche (ej. bear, doll, toy)..." value="bear">
-      </div>
-      <div class="col-md-4">
-        <button (click)="buscarPeluches(txtBusqueda.value)" class="btn btn-danger btn-lg w-100 fw-bold">Buscar Peluches</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col" *ngFor="let peluche of listaPeluches">
-      <div class="card h-100 shadow-sm border-0">
-        <img [src]="peluche.thumbnail" class="card-img-top p-3" [alt]="peluche.title" style="height: 200px; object-fit: contain;">
-        <div class="card-body">
-          <h5 class="card-title text-danger">{{ peluche.title }}</h5>
-          <p class="card-text text-muted">{{ peluche.description }}</p>
-          <span class="badge bg-success fs-6">${{ peluche.price }} USD</span>
+<main class="container mb-5 flex-grow-1">
+  <!-- Buscador -->
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body p-3 p-md-4">
+      <div class="row g-2">
+        <div class="col-md-9">
+          <input 
+            type="text" 
+            #txtBusqueda 
+            class="form-control form-control-lg" 
+            placeholder="Buscar peluche (ej. bear, dog, cat, doll)..." 
+            value="bear"
+            (keyup.enter)="buscarPeluches(txtBusqueda.value)">
         </div>
-        <div class="card-footer bg-transparent border-0 pb-3">
-          <button (click)="agregarFavorito(peluche.title)" class="btn btn-outline-danger btn-sm w-100 fw-bold">
-            Añadir a Favoritos
+        <div class="col-md-3">
+          <button (click)="buscarPeluches(txtBusqueda.value)" class="btn btn-danger btn-lg w-100 fw-bold">
+            🔍 Buscar
           </button>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Malla de Tarjetas (Cards Responsive con Grid de Bootstrap) -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let peluche of listaPeluches">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="position-relative text-center p-3 bg-white rounded-top">
+          <img 
+            [src]="peluche.thumbnail" 
+            [alt]="peluche.title" 
+            class="card-img-top img-fluid" 
+            style="height: 200px; object-fit: contain;">
+          <span class="position-absolute top-0 end-0 bg-success text-white badge rounded-pill m-2 fs-6">
+            ${{ peluche.price }} USD
+          </span>
+        </div>
+        <div class="card-body d-flex flex-column bg-white border-top">
+          <h5 class="card-title text-danger fw-bold">{{ peluche.title }}</h5>
+          <p class="card-text text-secondary flex-grow-1 fs-6">{{ peluche.description }}</p>
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <span class="badge bg-secondary">Categoría: {{ peluche.category }}</span>
+            <span class="text-warning fw-bold">★ {{ peluche.rating }}</span>
+          </div>
+        </div>
+        <div class="card-footer bg-white border-0 pb-3">
+          <button (click)="agregarFavorito(peluche.title)" class="btn btn-outline-danger w-100 fw-bold">
+             Añadir a Favoritos
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Pie de página con créditos del equipo -->
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+  <div class="container">
+    <p class="mb-0 fw-bold small">Proyecto Colaborativo de Frontend — Catálogo API</p>
+    <small class="text-secondary">Desarrollado por: Yanet • Alejandra • Andrea • Luz</small>
+  </div>
+</footer>
