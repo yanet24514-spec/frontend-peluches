@@ -1,0 +1,35 @@
+<div class="container py-5">
+  <div class="p-4 mb-4 bg-danger text-white rounded-3 shadow-sm text-center">
+    <h1 class="display-5 fw-bold">Catálogo de Peluches en Angular</h1>
+    <p class="fs-5">Consumo de API Externa con Angular, Bootstrap 5 y SweetAlert2</p>
+  </div>
+
+  <div class="card shadow-sm p-4 mb-4">
+    <div class="row g-3">
+      <div class="col-md-8">
+        <input type="text" #txtBusqueda class="form-control form-control-lg" placeholder="Buscar peluche (ej. bear, doll, toy)..." value="bear">
+      </div>
+      <div class="col-md-4">
+        <button (click)="buscarPeluches(txtBusqueda.value)" class="btn btn-danger btn-lg w-100 fw-bold">Buscar Peluches</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let peluche of listaPeluches">
+      <div class="card h-100 shadow-sm border-0">
+        <img [src]="peluche.thumbnail" class="card-img-top p-3" [alt]="peluche.title" style="height: 200px; object-fit: contain;">
+        <div class="card-body">
+          <h5 class="card-title text-danger">{{ peluche.title }}</h5>
+          <p class="card-text text-muted">{{ peluche.description }}</p>
+          <span class="badge bg-success fs-6">${{ peluche.price }} USD</span>
+        </div>
+        <div class="card-footer bg-transparent border-0 pb-3">
+          <button (click)="agregarFavorito(peluche.title)" class="btn btn-outline-danger btn-sm w-100 fw-bold">
+            Añadir a Favoritos
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
